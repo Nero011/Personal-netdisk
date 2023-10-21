@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 )
 
@@ -112,24 +111,7 @@ func (s *ProviderImpl) Register(ctx context.Context, req *service.RegisterReques
 		}
 		return nil, err
 	}
-	newUser := User{
-		UserName: req.UserName,
-		Password: req.UserPwd,
-	}
-	file, err := os.OpenFile("./config/user.json", os.O_WRONLY|os.O_APPEND, 0666)
-	defer file.Close()
 
-	data, err := json.Marshal(newUser)
-	if err != nil {
-		fmt.Println("json marshal error")
-		return nil, err
-	}
-	_, err = file.Seek(-1, io.SeekEnd)
-	_, err = file.Write(data)
-	if err != nil {
-		fmt.Println("write json error")
-		return nil, err
-	}
 	resp = &service.RegisterResponse{
 		Success: true,
 		ErrMsg:  "",
