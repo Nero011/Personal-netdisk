@@ -24,7 +24,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"Search":   kitex.NewMethodInfo(searchHandler, newProviderSearchArgs, newProviderSearchResult, false),
 		"Upload":   kitex.NewMethodInfo(uploadHandler, newProviderUploadArgs, newProviderUploadResult, false),
 		"Download": kitex.NewMethodInfo(downloadHandler, newProviderDownloadArgs, newProviderDownloadResult, false),
-		"Deletee":  kitex.NewMethodInfo(deleteeHandler, newProviderDeleteeArgs, newProviderDeleteeResult, false),
+		"Delete":   kitex.NewMethodInfo(deleteHandler, newProviderDeleteArgs, newProviderDeleteResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "service",
@@ -131,22 +131,22 @@ func newProviderDownloadResult() interface{} {
 	return service.NewProviderDownloadResult()
 }
 
-func deleteeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*service.ProviderDeleteeArgs)
-	realResult := result.(*service.ProviderDeleteeResult)
-	success, err := handler.(service.Provider).Deletee(ctx, realArg.Req)
+func deleteHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*service.ProviderDeleteArgs)
+	realResult := result.(*service.ProviderDeleteResult)
+	success, err := handler.(service.Provider).Delete(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newProviderDeleteeArgs() interface{} {
-	return service.NewProviderDeleteeArgs()
+func newProviderDeleteArgs() interface{} {
+	return service.NewProviderDeleteArgs()
 }
 
-func newProviderDeleteeResult() interface{} {
-	return service.NewProviderDeleteeResult()
+func newProviderDeleteResult() interface{} {
+	return service.NewProviderDeleteResult()
 }
 
 type kClient struct {
@@ -209,11 +209,11 @@ func (p *kClient) Download(ctx context.Context, req *service.DownloadResquest) (
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Deletee(ctx context.Context, req *service.DeleteResquest) (r *service.DeleteResponse, err error) {
-	var _args service.ProviderDeleteeArgs
+func (p *kClient) Delete(ctx context.Context, req *service.DeleteResquest) (r *service.DeleteResponse, err error) {
+	var _args service.ProviderDeleteArgs
 	_args.Req = req
-	var _result service.ProviderDeleteeResult
-	if err = p.c.Call(ctx, "Deletee", &_args, &_result); err != nil {
+	var _result service.ProviderDeleteResult
+	if err = p.c.Call(ctx, "Delete", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

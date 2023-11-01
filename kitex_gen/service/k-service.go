@@ -3305,7 +3305,7 @@ func (p *ProviderDownloadResult) field0Length() int {
 	return l
 }
 
-func (p *ProviderDeleteeArgs) FastRead(buf []byte) (int, error) {
+func (p *ProviderDeleteArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3367,7 +3367,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteeArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -3376,7 +3376,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ProviderDeleteeArgs) FastReadField1(buf []byte) (int, error) {
+func (p *ProviderDeleteArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewDeleteResquest()
@@ -3390,13 +3390,13 @@ func (p *ProviderDeleteeArgs) FastReadField1(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *ProviderDeleteeArgs) FastWrite(buf []byte) int {
+func (p *ProviderDeleteArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *ProviderDeleteeArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *ProviderDeleteArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "Deletee_args")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "Delete_args")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 	}
@@ -3405,9 +3405,9 @@ func (p *ProviderDeleteeArgs) FastWriteNocopy(buf []byte, binaryWriter bthrift.B
 	return offset
 }
 
-func (p *ProviderDeleteeArgs) BLength() int {
+func (p *ProviderDeleteArgs) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("Deletee_args")
+	l += bthrift.Binary.StructBeginLength("Delete_args")
 	if p != nil {
 		l += p.field1Length()
 	}
@@ -3416,7 +3416,7 @@ func (p *ProviderDeleteeArgs) BLength() int {
 	return l
 }
 
-func (p *ProviderDeleteeArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *ProviderDeleteArgs) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "req", thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], binaryWriter)
@@ -3424,7 +3424,7 @@ func (p *ProviderDeleteeArgs) fastWriteField1(buf []byte, binaryWriter bthrift.B
 	return offset
 }
 
-func (p *ProviderDeleteeArgs) field1Length() int {
+func (p *ProviderDeleteArgs) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("req", thrift.STRUCT, 1)
 	l += p.Req.BLength()
@@ -3432,7 +3432,7 @@ func (p *ProviderDeleteeArgs) field1Length() int {
 	return l
 }
 
-func (p *ProviderDeleteeResult) FastRead(buf []byte) (int, error) {
+func (p *ProviderDeleteResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3494,7 +3494,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteeResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -3503,7 +3503,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ProviderDeleteeResult) FastReadField0(buf []byte) (int, error) {
+func (p *ProviderDeleteResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
 	tmp := NewDeleteResponse()
@@ -3517,13 +3517,13 @@ func (p *ProviderDeleteeResult) FastReadField0(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *ProviderDeleteeResult) FastWrite(buf []byte) int {
+func (p *ProviderDeleteResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *ProviderDeleteeResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *ProviderDeleteResult) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "Deletee_result")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "Delete_result")
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], binaryWriter)
 	}
@@ -3532,9 +3532,9 @@ func (p *ProviderDeleteeResult) FastWriteNocopy(buf []byte, binaryWriter bthrift
 	return offset
 }
 
-func (p *ProviderDeleteeResult) BLength() int {
+func (p *ProviderDeleteResult) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("Deletee_result")
+	l += bthrift.Binary.StructBeginLength("Delete_result")
 	if p != nil {
 		l += p.field0Length()
 	}
@@ -3543,7 +3543,7 @@ func (p *ProviderDeleteeResult) BLength() int {
 	return l
 }
 
-func (p *ProviderDeleteeResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *ProviderDeleteResult) fastWriteField0(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "success", thrift.STRUCT, 0)
@@ -3553,7 +3553,7 @@ func (p *ProviderDeleteeResult) fastWriteField0(buf []byte, binaryWriter bthrift
 	return offset
 }
 
-func (p *ProviderDeleteeResult) field0Length() int {
+func (p *ProviderDeleteResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += bthrift.Binary.FieldBeginLength("success", thrift.STRUCT, 0)
@@ -3603,10 +3603,10 @@ func (p *ProviderDownloadResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *ProviderDeleteeArgs) GetFirstArgument() interface{} {
+func (p *ProviderDeleteArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *ProviderDeleteeResult) GetResult() interface{} {
+func (p *ProviderDeleteResult) GetResult() interface{} {
 	return p.Success
 }

@@ -60,6 +60,6 @@ service Provider{
     SearchResponse Search(1:SearchRequest req)
     UploadResponse Upload(1:UploadResquest req)
     DownloadResponse Download(1:DownloadResquest req)
-    DeleteResponse  Deletee(1:DeleteResquest req)
+    DeleteResponse  Delete(1:DeleteResquest req)
 
 }

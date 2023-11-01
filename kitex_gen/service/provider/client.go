@@ -16,7 +16,7 @@ type Client interface {
 	Search(ctx context.Context, req *service.SearchRequest, callOptions ...callopt.Option) (r *service.SearchResponse, err error)
 	Upload(ctx context.Context, req *service.UploadResquest, callOptions ...callopt.Option) (r *service.UploadResponse, err error)
 	Download(ctx context.Context, req *service.DownloadResquest, callOptions ...callopt.Option) (r *service.DownloadResponse, err error)
-	Deletee(ctx context.Context, req *service.DeleteResquest, callOptions ...callopt.Option) (r *service.DeleteResponse, err error)
+	Delete(ctx context.Context, req *service.DeleteResquest, callOptions ...callopt.Option) (r *service.DeleteResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -73,7 +73,7 @@ func (p *kProviderClient) Download(ctx context.Context, req *service.DownloadRes
 	return p.kClient.Download(ctx, req)
 }
 
-func (p *kProviderClient) Deletee(ctx context.Context, req *service.DeleteResquest, callOptions ...callopt.Option) (r *service.DeleteResponse, err error) {
+func (p *kProviderClient) Delete(ctx context.Context, req *service.DeleteResquest, callOptions ...callopt.Option) (r *service.DeleteResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.Deletee(ctx, req)
+	return p.kClient.Delete(ctx, req)
 }

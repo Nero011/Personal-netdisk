@@ -2519,7 +2519,7 @@ type Provider interface {
 
 	Download(ctx context.Context, req *DownloadResquest) (r *DownloadResponse, err error)
 
-	Deletee(ctx context.Context, req *DeleteResquest) (r *DeleteResponse, err error)
+	Delete(ctx context.Context, req *DeleteResquest) (r *DeleteResponse, err error)
 }
 
 type ProviderClient struct {
@@ -2593,11 +2593,11 @@ func (p *ProviderClient) Download(ctx context.Context, req *DownloadResquest) (r
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ProviderClient) Deletee(ctx context.Context, req *DeleteResquest) (r *DeleteResponse, err error) {
-	var _args ProviderDeleteeArgs
+func (p *ProviderClient) Delete(ctx context.Context, req *DeleteResquest) (r *DeleteResponse, err error) {
+	var _args ProviderDeleteArgs
 	_args.Req = req
-	var _result ProviderDeleteeResult
-	if err = p.Client_().Call(ctx, "Deletee", &_args, &_result); err != nil {
+	var _result ProviderDeleteResult
+	if err = p.Client_().Call(ctx, "Delete", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2628,7 +2628,7 @@ func NewProviderProcessor(handler Provider) *ProviderProcessor {
 	self.AddToProcessorMap("Search", &providerProcessorSearch{handler: handler})
 	self.AddToProcessorMap("Upload", &providerProcessorUpload{handler: handler})
 	self.AddToProcessorMap("Download", &providerProcessorDownload{handler: handler})
-	self.AddToProcessorMap("Deletee", &providerProcessorDeletee{handler: handler})
+	self.AddToProcessorMap("Delete", &providerProcessorDelete{handler: handler})
 	return self
 }
 func (p *ProviderProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -2889,16 +2889,16 @@ func (p *providerProcessorDownload) Process(ctx context.Context, seqId int32, ip
 	return true, err
 }
 
-type providerProcessorDeletee struct {
+type providerProcessorDelete struct {
 	handler Provider
 }
 
-func (p *providerProcessorDeletee) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := ProviderDeleteeArgs{}
+func (p *providerProcessorDelete) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ProviderDeleteArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("Deletee", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("Delete", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2907,11 +2907,11 @@ func (p *providerProcessorDeletee) Process(ctx context.Context, seqId int32, ipr
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := ProviderDeleteeResult{}
+	result := ProviderDeleteResult{}
 	var retval *DeleteResponse
-	if retval, err2 = p.handler.Deletee(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Deletee: "+err2.Error())
-		oprot.WriteMessageBegin("Deletee", thrift.EXCEPTION, seqId)
+	if retval, err2 = p.handler.Delete(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Delete: "+err2.Error())
+		oprot.WriteMessageBegin("Delete", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -2919,7 +2919,7 @@ func (p *providerProcessorDeletee) Process(ctx context.Context, seqId int32, ipr
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("Deletee", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("Delete", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -4667,39 +4667,39 @@ func (p *ProviderDownloadResult) Field0DeepEqual(src *DownloadResponse) bool {
 	return true
 }
 
-type ProviderDeleteeArgs struct {
+type ProviderDeleteArgs struct {
 	Req *DeleteResquest `thrift:"req,1" frugal:"1,default,DeleteResquest" json:"req"`
 }
 
-func NewProviderDeleteeArgs() *ProviderDeleteeArgs {
-	return &ProviderDeleteeArgs{}
+func NewProviderDeleteArgs() *ProviderDeleteArgs {
+	return &ProviderDeleteArgs{}
 }
 
-func (p *ProviderDeleteeArgs) InitDefault() {
-	*p = ProviderDeleteeArgs{}
+func (p *ProviderDeleteArgs) InitDefault() {
+	*p = ProviderDeleteArgs{}
 }
 
-var ProviderDeleteeArgs_Req_DEFAULT *DeleteResquest
+var ProviderDeleteArgs_Req_DEFAULT *DeleteResquest
 
-func (p *ProviderDeleteeArgs) GetReq() (v *DeleteResquest) {
+func (p *ProviderDeleteArgs) GetReq() (v *DeleteResquest) {
 	if !p.IsSetReq() {
-		return ProviderDeleteeArgs_Req_DEFAULT
+		return ProviderDeleteArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *ProviderDeleteeArgs) SetReq(val *DeleteResquest) {
+func (p *ProviderDeleteArgs) SetReq(val *DeleteResquest) {
 	p.Req = val
 }
 
-var fieldIDToName_ProviderDeleteeArgs = map[int16]string{
+var fieldIDToName_ProviderDeleteArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *ProviderDeleteeArgs) IsSetReq() bool {
+func (p *ProviderDeleteArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *ProviderDeleteeArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ProviderDeleteArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4748,7 +4748,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteeArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4758,7 +4758,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ProviderDeleteeArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ProviderDeleteArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewDeleteResquest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -4766,9 +4766,9 @@ func (p *ProviderDeleteeArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *ProviderDeleteeArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ProviderDeleteArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("Deletee_args"); err != nil {
+	if err = oprot.WriteStructBegin("Delete_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4795,7 +4795,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ProviderDeleteeArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ProviderDeleteArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4812,14 +4812,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *ProviderDeleteeArgs) String() string {
+func (p *ProviderDeleteArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ProviderDeleteeArgs(%+v)", *p)
+	return fmt.Sprintf("ProviderDeleteArgs(%+v)", *p)
 }
 
-func (p *ProviderDeleteeArgs) DeepEqual(ano *ProviderDeleteeArgs) bool {
+func (p *ProviderDeleteArgs) DeepEqual(ano *ProviderDeleteArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -4831,7 +4831,7 @@ func (p *ProviderDeleteeArgs) DeepEqual(ano *ProviderDeleteeArgs) bool {
 	return true
 }
 
-func (p *ProviderDeleteeArgs) Field1DeepEqual(src *DeleteResquest) bool {
+func (p *ProviderDeleteArgs) Field1DeepEqual(src *DeleteResquest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -4839,39 +4839,39 @@ func (p *ProviderDeleteeArgs) Field1DeepEqual(src *DeleteResquest) bool {
 	return true
 }
 
-type ProviderDeleteeResult struct {
+type ProviderDeleteResult struct {
 	Success *DeleteResponse `thrift:"success,0,optional" frugal:"0,optional,DeleteResponse" json:"success,omitempty"`
 }
 
-func NewProviderDeleteeResult() *ProviderDeleteeResult {
-	return &ProviderDeleteeResult{}
+func NewProviderDeleteResult() *ProviderDeleteResult {
+	return &ProviderDeleteResult{}
 }
 
-func (p *ProviderDeleteeResult) InitDefault() {
-	*p = ProviderDeleteeResult{}
+func (p *ProviderDeleteResult) InitDefault() {
+	*p = ProviderDeleteResult{}
 }
 
-var ProviderDeleteeResult_Success_DEFAULT *DeleteResponse
+var ProviderDeleteResult_Success_DEFAULT *DeleteResponse
 
-func (p *ProviderDeleteeResult) GetSuccess() (v *DeleteResponse) {
+func (p *ProviderDeleteResult) GetSuccess() (v *DeleteResponse) {
 	if !p.IsSetSuccess() {
-		return ProviderDeleteeResult_Success_DEFAULT
+		return ProviderDeleteResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *ProviderDeleteeResult) SetSuccess(x interface{}) {
+func (p *ProviderDeleteResult) SetSuccess(x interface{}) {
 	p.Success = x.(*DeleteResponse)
 }
 
-var fieldIDToName_ProviderDeleteeResult = map[int16]string{
+var fieldIDToName_ProviderDeleteResult = map[int16]string{
 	0: "success",
 }
 
-func (p *ProviderDeleteeResult) IsSetSuccess() bool {
+func (p *ProviderDeleteResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *ProviderDeleteeResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ProviderDeleteResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4920,7 +4920,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteeResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ProviderDeleteResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4930,7 +4930,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ProviderDeleteeResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ProviderDeleteResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewDeleteResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -4938,9 +4938,9 @@ func (p *ProviderDeleteeResult) ReadField0(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *ProviderDeleteeResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ProviderDeleteResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("Deletee_result"); err != nil {
+	if err = oprot.WriteStructBegin("Delete_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4967,7 +4967,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ProviderDeleteeResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ProviderDeleteResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -4986,14 +4986,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *ProviderDeleteeResult) String() string {
+func (p *ProviderDeleteResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ProviderDeleteeResult(%+v)", *p)
+	return fmt.Sprintf("ProviderDeleteResult(%+v)", *p)
 }
 
-func (p *ProviderDeleteeResult) DeepEqual(ano *ProviderDeleteeResult) bool {
+func (p *ProviderDeleteResult) DeepEqual(ano *ProviderDeleteResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -5005,7 +5005,7 @@ func (p *ProviderDeleteeResult) DeepEqual(ano *ProviderDeleteeResult) bool {
 	return true
 }
 
-func (p *ProviderDeleteeResult) Field0DeepEqual(src *DeleteResponse) bool {
+func (p *ProviderDeleteResult) Field0DeepEqual(src *DeleteResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
